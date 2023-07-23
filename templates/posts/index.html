@@ -9,9 +9,6 @@
 <h1><a class="nav-link active" aria-current="page" href="{% url 'index-page' %}">Главная</a></h1>
     <a href="{% url 'contacts-page' %}">Контакты</a></br>
     <a href="{% url 'about-page' %}">Про меня</a></br></h1>
-{% for item in my_list %}
-    <li>{{ item }}</li>
-{% endfor %}
 <p>Добро пожаловать</p>
 {% endblock %}
 
