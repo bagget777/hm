@@ -7,6 +7,7 @@
 {% block content %}
 <div style="width: 35rem">
     <h3>Вы точно хотите удалить пост?</h3>
+    <h6 class="card-subtitle mb-2 text-body-secondary">{{ post.get_category_display }} - {{ post.created }}</h6>
             <form action="{% url 'post-delete' post.id %}" method="post">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-primary">Удалить</button>

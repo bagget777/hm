@@ -1,0 +1,9 @@
+Верификация
+<form 
+    action="/post/create" method="POST">
+    <label for="login">Логин:</label>
+    <input type="text" id="login" name="login" required><br><br>
+    <input type="submit" value="Отправить">
+    <a href="{% url 'index-page' %}">Главная</a><br>
+    {% csrf_token %}
+</form>
