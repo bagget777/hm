@@ -26,12 +26,6 @@ class PostsTestCase(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed("posts/about.html")
-        
-    def test_post_verification(self):
-        response = self.client.get(reverse("post-verification"))
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed("posts/contacts.html")
 
     def test_post_update(self):
         response = self.client.get(reverse("post-update", args=(self.post.pk,)))
@@ -44,5 +38,3 @@ class PostsTestCase(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed("posts/post_delete.html")
-        
-

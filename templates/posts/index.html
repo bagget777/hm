@@ -5,23 +5,28 @@
 {% endblock %}
 
 {% block content %}
-  
-{% for post in posts %}
-    <div class="card mx-auto" style="width: 35rem;">
-    <img src="{{ post.cover.url }}" class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">{{ post.title }}</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary">{{ post.get_category_display }} - {{ post.created }}</h6>
-        <p class="card-text">{{ post.content|truncatewords:10 }}</p>
-        <a href="{% url 'post-detail' post.id %}" class="btn btn-primary">Читать далее</a>
-    </div>
-</div><br>
 
-{% endfor %}
+    {% for post in posts %}
+        <div class="card mx-auto" style="width: 35rem;">
+        <img src="{{ post.cover.url }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{ post.get_category_display }} - {{ post.created }}</h6>
+            <p class="card-text">{{ post.content|truncatewords:10 }}</p>
+            <a href="{% url 'post-detail' post.id %}" class="btn btn-primary">Читать далее</a>
+        </div>
+    </div><br>
 
-        {% if user.is_authenticated %}
-<br><a href="{% url 'post-create' %}">Создать</a><br>
-{% endif %}
+    {% endfor %}
+
+
+
+
+
+    <br>
+    {% if user.is_authenticated %}
+    <a href="{% url 'post-create' %}"><button class="btn btn-success">Создать запись</button></a><br>
+    {% endif %}
 
     <a href="{% url 'contacts-page' %}">Контакты</a><br>
     <a href="{% url 'about-page' %}">О нас</a><br>
