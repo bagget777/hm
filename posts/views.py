@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from posts.forms import CommentForm
+from posts.forms import CommentForm, PostForm
 from posts.models import Post, Comment
 from django.views import generic
 
@@ -39,7 +39,7 @@ class PostDetailView(generic.DetailView):
 class PostCreateView(generic.CreateView):
     model = Post
     template_name = "posts/post_create.html"
-    fields = ["title", "content", "status", "category", "cover"]
+    form_class = PostForm
     success_url = reverse_lazy("index-page")
 
 
