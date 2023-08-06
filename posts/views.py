@@ -1,17 +1,26 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from posts.forms import CommentForm, PostForm
 from posts.models import Post, Comment
 from django.views import generic
+from users.forms import UserRegistrationForm
 
 
 # Class Retrieve LIST
-class IndexView(generic.ListView):
-    # model = Post
-    queryset = Post.objects.filter(status=True)
-    template_name = "posts/index.html"
-    context_object_name = "posts"
+class UserRegisterView(generic.CreateView):
+    template_name = 'registration/register_done.html'
+    success_url = reverse_lazy('login')
+    form_class = UserRegistrationForm
 
+    def post(self, request, *args, **kwargs):
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data["password"])
+            new_user.save()
+            return render(request, "registration/register_done.html", {"user": new_user})
+        return render(request, "registration/register.html", {"form": user_form})
 
 # Class Retrieve DETAIL
 class PostDetailView(generic.DetailView):
@@ -36,7 +45,7 @@ class PostDetailView(generic.DetailView):
 
 
 # Class Create
-class PostCreateView(generic.CreateView):
+class PostCreateView(LoginRequiredMixin, generic.CreateView):
     model = Post
     template_name = "posts/post_create.html"
     form_class = PostForm
@@ -50,7 +59,7 @@ class PostDeleteView(generic.DeleteView):
 
 
 # Class Update
-class PostUpdateView(generic.UpdateView):
+class PostUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Post
     template_name = "posts/post_update.html"
     form_class = PostForm

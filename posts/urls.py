@@ -4,7 +4,7 @@ from posts import views
 
 urlpatterns = [
     # path("", views.index_view, name="index-page"),
-    path("", views.IndexView.as_view(), name="index-page"),
+    path("", views.UserRegisterView.as_view(), name="index-page"),
     path("contacts/", views.contacts, name="contacts-page"),
     path("about/", views.about, name="about-page"),
     # path("post/<int:pk>", views.post_detail, name="post-detail"),
